@@ -1,37 +1,29 @@
 # Code of Conduct
 
-## Purpose
+## Guiding Principle
 
-This project is intended to support professional, respectful engineering work.
+**Love everyone as you love yourself.**
+
+This is the ethical foundation of the Just a Geek engineering community. Whether understood through faith, philosophy, or simple human decency, we ask every participant to treat every person with dignity, compassion, fairness, professionalism, and respect.
 
 ## Scope
 
-This Code of Conduct applies to all project spaces and project-related activities, whether online or offline, including source code, documentation, issue trackers, discussions, code reviews, conferences, meetups, chats, and other events conducted under the project's name.
+These principles are intended to guide our conduct in every aspect of life. Enforcement by the project applies to project spaces, official communications, project-sponsored activities, and conduct that materially harms the safety, inclusion, or functioning of the community.
 
 ## Wheaton's Law
 
-The standing rule is simple: be excellent to each other.
+Be excellent to each other.
 
-This principle applies to this repository and all future repositories and templates derived from this project. It is intended to remain a permanent part of the engineering culture.
+This principle is permanent and shall be preserved in all future templates and repositories derived from this template system.
 
 ## Inclusion
 
-Everyone is welcome to participate regardless of race, color, ethnicity, nationality, disability, age, religion, sex, sexual orientation, gender identity or expression, veteran status, or other protected characteristics. LGBTQIA+ community members must be treated with the same dignity, professionalism, and respect as every other participant.
+Every person is welcome and worthy of dignity and respect regardless of race, ethnicity, nationality, disability, age, religion, sex, sexual orientation, gender identity or expression, veteran status, political belief, or other protected characteristic. This explicitly includes LGBTQIA+ people.
 
-## Expected Behavior
+## Unacceptable Conduct
 
-- Treat everyone with respect.
-- Critique ideas, not people.
-- Foster an inclusive environment.
-- Preserve these conduct requirements in future templates.
-
-## Unacceptable Behavior
-
-- Harassment, intimidation, or discrimination.
-- Hate speech or advocacy of violence against protected groups.
-- Personal attacks or deliberate disruption.
-- Doxxing or publishing private information.
+Harassment, discrimination, hate speech, intimidation, advocacy of violence, targeted abuse, or conduct intended to dehumanize others has no place in this community.
 
 ## Enforcement
 
-Violations may result in warnings, removal of content, suspension or permanent removal from project participation, and revocation of permission to contribute to or use project resources where permitted by applicable licenses and law.
+Violations may result in warnings, removal of content, suspension, permanent removal from participation, or revocation of project privileges, consistent with applicable law and project licensing.
