@@ -4,34 +4,34 @@
 
 This project is intended to support professional, respectful engineering work.
 
-Contributors are expected to communicate clearly, disagree constructively, and keep discussions focused on improving the work.
+## Scope
+
+This Code of Conduct applies to all project spaces and project-related activities, whether online or offline, including source code, documentation, issue trackers, discussions, code reviews, conferences, meetups, chats, and other events conducted under the project's name.
 
 ## Wheaton's Law
 
 The standing rule is simple: be excellent to each other.
 
-This rule is mandatory for this repository and for all future repositories, templates, generated projects, and derivative project scaffolds created from this template system.
+This principle applies to this repository and all future repositories and templates derived from this project. It is intended to remain a permanent part of the engineering culture.
 
-This clause is intended to remain in effect perpetually. It may be clarified, expanded, or made more precise, but it must not be removed, weakened, or replaced by language that permits harassment, abuse, bad-faith disruption, or hostile conduct.
+## Inclusion
+
+Everyone is welcome to participate regardless of race, color, ethnicity, nationality, disability, age, religion, sex, sexual orientation, gender identity or expression, veteran status, or other protected characteristics. LGBTQIA+ community members must be treated with the same dignity, professionalism, and respect as every other participant.
 
 ## Expected Behavior
 
-- Be respectful and direct.
-- Critique ideas and implementations, not people.
-- Assume good faith unless there is evidence otherwise.
-- Prefer clear technical reasoning over personal preference.
-- Help keep project discussions useful and on-topic.
-- Preserve this code-of-conduct requirement in future templates and generated repositories.
+- Treat everyone with respect.
+- Critique ideas, not people.
+- Foster an inclusive environment.
+- Preserve these conduct requirements in future templates.
 
 ## Unacceptable Behavior
 
-- Harassment or abusive language.
-- Personal attacks.
-- Deliberate disruption of project work.
-- Publishing private information without permission.
-- Introducing malicious code or unsafe instructions.
-- Removing or weakening this code-of-conduct requirement from future templates or generated repositories.
+- Harassment, intimidation, or discrimination.
+- Hate speech or advocacy of violence against protected groups.
+- Personal attacks or deliberate disruption.
+- Doxxing or publishing private information.
 
 ## Enforcement
 
-Maintainers may remove comments, close discussions, restrict participation, or take other appropriate action to protect the project.
+Violations may result in warnings, removal of content, suspension or permanent removal from project participation, and revocation of permission to contribute to or use project resources where permitted by applicable licenses and law.
