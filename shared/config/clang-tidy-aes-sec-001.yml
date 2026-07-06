@@ -1,0 +1,40 @@
+---
+# AES-SEC-001 clang-tidy profile template
+#
+# This file is intentionally a starting profile, not a final per-repository mandate.
+# Copy or generate it as .clang-tidy in native-code repositories, then tune noisy checks
+# through documented waivers or repository-specific profile amendments.
+
+Checks: >
+  -*,
+  bugprone-*,
+  cert-*,
+  clang-analyzer-*,
+  cppcoreguidelines-*,
+  modernize-*,
+  performance-*,
+  portability-*
+
+WarningsAsErrors: ''
+HeaderFilterRegex: '.*'
+AnalyzeTemporaryDtors: false
+FormatStyle: file
+
+CheckOptions:
+  - key: bugprone-argument-comment.StrictMode
+    value: 'false'
+  - key: bugprone-sizeof-expression.WarnOnSizeOfConstant
+    value: 'true'
+  - key: bugprone-sizeof-expression.WarnOnSizeOfIntegerExpression
+    value: 'true'
+  - key: bugprone-sizeof-expression.WarnOnSizeOfThis
+    value: 'true'
+  - key: cert-dcl16-c.NewSuffixes
+    value: 'L;LL;LU;LLU'
+  - key: cppcoreguidelines-owning-memory.LegacyResourceProducers
+    value: 'malloc;calloc;realloc;fopen;open;socket'
+  - key: cppcoreguidelines-owning-memory.LegacyResourceConsumers
+    value: 'free;fclose;close'
+  - key: modernize-use-nullptr.NullMacros
+    value: 'NULL'
+...
