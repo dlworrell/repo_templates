@@ -1,0 +1,33 @@
+name: Repository Compliance
+
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: Compliance profile
+        required: true
+        default: .aems/project-zero/profiles/default/profile.json
+        type: string
+  pull_request:
+    paths:
+      - 'README.md'
+      - 'LICENSE*'
+      - 'SECURITY.md'
+      - 'CONTRIBUTING.md'
+      - 'GOVERNANCE.md'
+      - 'repo.yaml'
+      - 'p0.yaml'
+      - '.aems/**'
+      - '.github/workflows/compliance.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  compliance:
+    uses: ./.github/workflows/project-zero.yml
+    with:
+      mode: verify
+      repository_state: existing
+      profile: ${{ inputs.profile || '.aems/project-zero/profiles/default/profile.json' }}
+      mutation_policy: report-only
