@@ -3,22 +3,35 @@ name: Project Zero Self-Test
 on:
   pull_request:
     paths:
-      - ".github/workflows/project-zero.yml"
-      - ".github/workflows/project-zero-self-test.yml"
-      - ".aems/project-zero/**"
-      - "scripts/project-zero"
-      - "templates/project_zero/**"
-      - "tools/project_zero.py"
+      - '.github/workflows/p0.yml'
+      - '.github/workflows/verify.yml'
+      - '.github/workflows/documentation.yml'
+      - '.github/workflows/compliance.yml'
+      - '.github/workflows/optimization.yml'
+      - '.github/workflows/release.yml'
+      - '.github/workflows/project-zero.yml'
+      - '.github/workflows/project-zero-self-test.yml'
+      - '.aems/project-zero/**'
+      - 'docs/standards/repository-lifecycle-contract.md'
+      - 'scripts/project-zero'
+      - 'templates/project_zero/**'
+      - 'tools/project_zero.py'
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
-      - ".github/workflows/project-zero.yml"
-      - ".github/workflows/project-zero-self-test.yml"
-      - ".aems/project-zero/**"
-      - "scripts/project-zero"
-      - "templates/project_zero/**"
-      - "tools/project_zero.py"
+      - '.github/workflows/p0.yml'
+      - '.github/workflows/verify.yml'
+      - '.github/workflows/documentation.yml'
+      - '.github/workflows/compliance.yml'
+      - '.github/workflows/optimization.yml'
+      - '.github/workflows/release.yml'
+      - '.github/workflows/project-zero.yml'
+      - '.github/workflows/project-zero-self-test.yml'
+      - '.aems/project-zero/**'
+      - 'docs/standards/repository-lifecycle-contract.md'
+      - 'scripts/project-zero'
+      - 'templates/project_zero/**'
+      - 'tools/project_zero.py'
 
 permissions:
   contents: read
@@ -37,6 +50,27 @@ jobs:
           python3 -m py_compile tools/project_zero.py
           python3 -m json.tool .aems/project-zero/profiles/default/profile.json >/dev/null
           python3 -m json.tool templates/project_zero/template.json >/dev/null
+
+      - name: Validate lifecycle workflow inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(
+            .github/workflows/p0.yml
+            .github/workflows/verify.yml
+            .github/workflows/documentation.yml
+            .github/workflows/compliance.yml
+            .github/workflows/optimization.yml
+            .github/workflows/release.yml
+          )
+          for file in "${required[@]}"; do
+            test -s "$file"
+            grep -q 'workflow_dispatch:' "$file"
+          done
+          grep -q 'workflow_call:' .github/workflows/project-zero.yml
+          grep -q 'Production mutation: \*\*not permitted\*\*' .github/workflows/optimization.yml
+          grep -q 'does not create tags or publish releases' .github/workflows/release.yml
+          test -s docs/standards/repository-lifecycle-contract.md
 
       - name: Run inspection contract
         shell: bash
