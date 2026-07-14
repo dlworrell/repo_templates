@@ -1,6 +1,20 @@
 name: Project Zero
 
 on:
+  workflow_call:
+    inputs:
+      mode:
+        required: true
+        type: string
+      repository_state:
+        required: true
+        type: string
+      profile:
+        required: true
+        type: string
+      mutation_policy:
+        required: true
+        type: string
   workflow_dispatch:
     inputs:
       mode:
@@ -61,6 +75,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
+          mkdir -p build
           python3 tools/project_zero.py \
             "${{ inputs.mode }}" \
             --repository-state "${{ inputs.repository_state }}" \
@@ -131,5 +146,4 @@ jobs:
       - name: Enforce verification or certification result
         if: always() && (inputs.mode == 'verify' || inputs.mode == 'certify')
         shell: bash
-        run: |
-          test "${{ steps.p0.outputs.engine_status }}" = "0"
+        run: test "${{ steps.p0.outputs.engine_status }}" = "0"
