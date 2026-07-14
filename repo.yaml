@@ -1,0 +1,18 @@
+repository:
+  id: REPO-TEMPLATES
+  name: repo_templates
+  class: infrastructure
+  purpose: Canonical repository templates and lifecycle workflow contracts for Catalyst projects.
+  lifecycle: active
+  authority_chain:
+    - Catylist
+    - AES
+    - AEMS
+    - Project Zero
+    - repo_templates
+  governing_documents:
+    - CAT-001
+  outputs:
+    - repository templates
+    - lifecycle workflows
+    - Project Zero bootstrap assets
