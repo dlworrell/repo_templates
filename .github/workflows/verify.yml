@@ -1,0 +1,25 @@
+name: Verify Repository
+
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: P0 verification profile
+        required: true
+        default: .aems/project-zero/profiles/default/profile.json
+        type: string
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    uses: ./.github/workflows/project-zero.yml
+    with:
+      mode: verify
+      repository_state: existing
+      profile: ${{ inputs.profile || '.aems/project-zero/profiles/default/profile.json' }}
+      mutation_policy: report-only
