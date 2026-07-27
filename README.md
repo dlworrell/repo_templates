@@ -72,6 +72,22 @@ Templates use double-brace placeholders to be replaced by future tooling:
 {{WEBSITE}}
 ```
 
+## Distributed AES-SEC-001 Controls
+
+Native-code repositories receive the centrally maintained AEMS governance
+baseline from:
+
+- `shared/config/.clang-tidy`;
+- `shared/config/clang-tidy-aes-sec-001.yml`; and
+- `shared/github/workflows/aes-sec-001-governance.yml`.
+
+The two shared Clang-Tidy files and the repository-root policy are intentionally
+byte-identical. Generated repositories install either shared configuration as
+`.clang-tidy` and copy the shared workflow to
+`.github/workflows/aes-sec-001-governance.yml`. The workflow calls the AEMS
+reusable control at `@main`, reports review-required primitives as warnings,
+and blocks the adopted AES-SEC-001 banned APIs.
+
 ## Versioning
 
 Templates are versioned like software. Projects created from a template should record the source template name and version in their project charter or README.
