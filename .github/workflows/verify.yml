@@ -20,6 +20,13 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+      - name: Verify distributed AES-SEC-001 templates
+        run: |
+          cmp .clang-tidy shared/config/.clang-tidy
+          cmp .clang-tidy shared/config/clang-tidy-aes-sec-001.yml
+          cmp \
+            .github/workflows/aes-sec-001-governance.yml \
+            shared/github/workflows/aes-sec-001-governance.yml
       - name: Run repository verification
         shell: bash
         run: |

@@ -1,40 +1,21 @@
 ---
-# AES-SEC-001 clang-tidy profile template
+# AEMS distributed AES-SEC-001 baseline.
 #
-# This file is intentionally a starting profile, not a final per-repository mandate.
-# Copy or generate it as .clang-tidy in native-code repositories, then tune noisy checks
-# through documented waivers or repository-specific profile amendments.
-
+# The broad deprecated-buffer checker remains reporting-only because it also
+# reports reviewed primitives such as memcpy, snprintf, and ordinary memset.
+# Exact AES bans are enforced by scripts/aes_sec_001_scan.py.
 Checks: >
   -*,
-  bugprone-*,
-  cert-*,
-  clang-analyzer-*,
-  cppcoreguidelines-*,
-  modernize-*,
-  performance-*,
-  portability-*
-
-WarningsAsErrors: ''
+  bugprone-infinite-loop,
+  bugprone-string-constructor,
+  clang-analyzer-security.insecureAPI.strcpy,
+  clang-analyzer-security.insecureAPI.gets,
+  clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling
+WarningsAsErrors: >
+  bugprone-infinite-loop,
+  bugprone-string-constructor,
+  clang-analyzer-security.insecureAPI.strcpy,
+  clang-analyzer-security.insecureAPI.gets
 HeaderFilterRegex: '.*'
-AnalyzeTemporaryDtors: false
 FormatStyle: file
-
-CheckOptions:
-  - key: bugprone-argument-comment.StrictMode
-    value: 'false'
-  - key: bugprone-sizeof-expression.WarnOnSizeOfConstant
-    value: 'true'
-  - key: bugprone-sizeof-expression.WarnOnSizeOfIntegerExpression
-    value: 'true'
-  - key: bugprone-sizeof-expression.WarnOnSizeOfThis
-    value: 'true'
-  - key: cert-dcl16-c.NewSuffixes
-    value: 'L;LL;LU;LLU'
-  - key: cppcoreguidelines-owning-memory.LegacyResourceProducers
-    value: 'malloc;calloc;realloc;fopen;open;socket'
-  - key: cppcoreguidelines-owning-memory.LegacyResourceConsumers
-    value: 'free;fclose;close'
-  - key: modernize-use-nullptr.NullMacros
-    value: 'NULL'
 ...
