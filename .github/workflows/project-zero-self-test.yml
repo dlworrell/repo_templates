@@ -16,6 +16,8 @@ on:
       - 'scripts/project-zero'
       - 'templates/project_zero/**'
       - 'tools/project_zero.py'
+      - 'tools/project_zero_commit.py'
+      - 'tests/**'
   push:
     branches: [main]
     paths:
@@ -32,6 +34,8 @@ on:
       - 'scripts/project-zero'
       - 'templates/project_zero/**'
       - 'tools/project_zero.py'
+      - 'tools/project_zero_commit.py'
+      - 'tests/**'
 
 permissions:
   contents: read
@@ -47,9 +51,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m py_compile tools/project_zero.py
+          python3 -m py_compile tools/project_zero.py tools/project_zero_commit.py
           python3 -m json.tool .aems/project-zero/profiles/default/profile.json >/dev/null
           python3 -m json.tool templates/project_zero/template.json >/dev/null
+
+      - name: Run unit tests
+        shell: bash
+        run: python3 -m unittest discover -s tests -v
 
       - name: Validate lifecycle workflow inventory
         shell: bash
@@ -68,6 +76,17 @@ jobs:
             grep -q 'workflow_dispatch:' "$file"
           done
           grep -q 'workflow_call:' .github/workflows/project-zero.yml
+          # AES-DEV-001-R005: remediation commits must come from the GitHub API.
+          grep -q 'tools/project_zero_commit.py' .github/workflows/project-zero.yml
+          # (`! cmd` does not trip `set -e`, so failures are explicit.)
+          if grep -Eq '^\s*git (commit|push)' .github/workflows/project-zero.yml; then
+            echo "project-zero.yml must not create unsigned local commits" >&2
+            exit 1
+          fi
+          if grep -Eq '^\s*pull_request_target:' .github/workflows/project-zero.yml; then
+            echo "project-zero.yml must not run on pull_request_target" >&2
+            exit 1
+          fi
           grep -q 'Production mutation: \*\*not permitted\*\*' .github/workflows/optimization.yml
           grep -q 'does not create tags or publish releases' .github/workflows/release.yml
           test -s docs/standards/repository-lifecycle-contract.md
