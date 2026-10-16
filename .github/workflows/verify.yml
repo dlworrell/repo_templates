@@ -27,6 +27,10 @@ jobs:
           cmp \
             .github/workflows/aes-sec-001-governance.yml \
             shared/github/workflows/aes-sec-001-governance.yml
+      - name: Verify repository rulesets
+        run: |
+          python3 tools/verify_rulesets.py
+          python3 -m unittest discover -s tests -v
       - name: Run repository verification
         shell: bash
         run: |
