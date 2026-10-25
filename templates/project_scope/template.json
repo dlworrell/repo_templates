@@ -1,0 +1,14 @@
+{
+  "template_id": "project_scope",
+  "version": "0.1.0",
+  "description": "Governed scope skeleton and read-only root caller under Catylist ADR-0004; requires explicit project configuration.",
+  "files": [
+    {"source": "templates/project_scope/skeleton/README.md", "target": "{{SCOPE_PATH}}/README.md"},
+    {"source": "templates/project_scope/skeleton/ci/check.sh", "target": "{{SCOPE_PATH}}/ci/check.sh"},
+    {"source": "templates/project_scope/skeleton/docs/README.md", "target": "{{SCOPE_PATH}}/docs/README.md"},
+    {"source": "templates/project_scope/skeleton/docs/engineering/README.md", "target": "{{SCOPE_PATH}}/docs/engineering/README.md"},
+    {"source": "templates/project_scope/skeleton/tests/README.md", "target": "{{SCOPE_PATH}}/tests/README.md"},
+    {"source": "templates/project_scope/scope-ci.yml.example", "target": ".github/workflows/{{SCOPE_ID}}.yml"}
+  ],
+  "post_install": {"manual_configuration": "Replace all parameters, update the repository manifest, obtain applicable adoption evidence, and implement real scope checks before activation."}
+}
