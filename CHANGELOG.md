@@ -17,6 +17,10 @@ This project follows semantic versioning once the first tagged release is create
 
 ### Added
 
+- Governed project-scope and agent-instruction scaffolds for Catylist #26,
+  citing ADR-0004/0005, with read-only CI wiring, visible unconfigured failure
+  and ignored personal agent settings.
+
 - Initial repository purpose and roadmap.
 - Planned template categories for company, C library, C application, and documentation repositories.
 - Versioned repository ruleset definitions in `rulesets/` (`protect-default-branch`, `protect-release-tags`) consumed by AEMS, with `tools/verify_rulesets.py` and tests enforced in `verify.yml`.

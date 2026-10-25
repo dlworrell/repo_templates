@@ -31,6 +31,16 @@ Planned templates:
 
 Future templates may include C++, Python, iOS, embedded firmware, FPGA, web services, research projects, and hardware projects.
 
+Available governance scaffolds:
+
+- [`project_scope`](templates/project_scope/README.md): a self-contained scope,
+  evidence locations and a read-only root caller under Catylist ADR-0004.
+- [`agent_instructions`](templates/agent_instructions/README.md): root and scope
+  `CLAUDE.md` plus minimal `.claude/` routing under Catylist ADR-0005.
+
+These scaffolds require explicit parameter replacement and project evidence;
+their presence does not establish adoption, verification or production readiness.
+
 ## Proposed Layout
 
 ```text

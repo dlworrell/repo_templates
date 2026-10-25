@@ -287,3 +287,6 @@ local.settings.json
 .terraform/
 kubeconfig
 *.kubeconfig
+
+# Per-user agent configuration
+**/.claude/settings.local.json
