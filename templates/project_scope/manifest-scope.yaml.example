@@ -1,0 +1,12 @@
+# Merge into the repository's AES-003 scopes list; replace all parameters.
+scopes:
+  - id: '{{SCOPE_ID}}'
+    path: '{{SCOPE_PATH}}/'
+    owner: '{{GITHUB_OWNER}}'
+    class: experimental
+    lifecycle: bootstrap
+    standards:
+      - id: AES-SEC-001
+        applicability: '{{STANDARD_APPLICABILITY}}'
+        reason: '{{APPLICABILITY_REASON}}'
+    dependencies: []

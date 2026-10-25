@@ -1,0 +1,22 @@
+name: '{{SCOPE_NAME}} checks'
+on:
+  pull_request:
+    paths:
+      - '{{SCOPE_PATH}}/**'
+      - '.github/workflows/{{SCOPE_ID}}.yml'
+  push:
+    branches: [main]
+    paths:
+      - '{{SCOPE_PATH}}/**'
+      - '.github/workflows/{{SCOPE_ID}}.yml'
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Run scope checks
+        run: bash '{{SCOPE_PATH}}/ci/check.sh'
