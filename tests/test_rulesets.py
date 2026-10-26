@@ -45,6 +45,18 @@ class RepositoryRulesetsTest(unittest.TestCase):
         self.assertEqual(data["conditions"]["ref_name"]["include"], ["refs/tags/v*"])
 
 
+    def test_integration_branch_rules_match_the_default_branch(self) -> None:
+        # Catylist ADR-0013: dev-daily and fitment get the ADR-0006 rules.
+        data = load("rulesets/protect-integration-branches.json")
+        default = load("rulesets/protect-default-branch.json")
+        self.assertEqual(data["rules"], default["rules"])
+        self.assertEqual(data["bypass_actors"], [])
+        self.assertEqual(
+            data["conditions"]["ref_name"]["include"],
+            ["refs/heads/dev-daily", "refs/heads/fitment"],
+        )
+
+
 class CheckRulesetTest(unittest.TestCase):
     def setUp(self) -> None:
         self.base = load("rulesets/protect-default-branch.json")
@@ -84,7 +96,8 @@ class VerifyTreeTest(unittest.TestCase):
             (root / "rulesets").mkdir()
             (root / "rulesets" / "protect-default-branch.json").write_text("{not json")
             errors = verify_rulesets.verify(root)
-        self.assertEqual(len(errors), 2)
+        # One invalid file, and every other expected file is missing.
+        self.assertEqual(len(errors), len(verify_rulesets.EXPECTED))
         self.assertTrue(any("invalid JSON" in error for error in errors))
         self.assertTrue(any("file is missing" in error for error in errors))
 

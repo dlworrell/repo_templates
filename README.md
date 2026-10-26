@@ -82,6 +82,23 @@ Templates use double-brace placeholders to be replaced by future tooling:
 {{WEBSITE}}
 ```
 
+## Daily, Fitment and Release Branches
+
+Repositories that adopt Catylist ADR-0013 work in three branches: topic
+branches merge into `dev-daily` (the daily merge scope), AEMS promotes
+`dev-daily` into `fitment` where its agents review documentation and tests and
+send findings to the authors, and `fitment` is promoted into `main` for
+release. They install:
+
+- `rulesets/protect-integration-branches.json`, applied by AEMS, which gives
+  `dev-daily` and `fitment` the default-branch rules;
+- `shared/github/workflows/ci.yml` as `.github/workflows/ci.yml` (or the same
+  branch triggers in the repository's existing CI), with its own test command;
+  and
+- `shared/github/workflows/release.yml` as `.github/workflows/release.yml`,
+  which tests `main` and parks at the `release` environment until the owner
+  approves the tag.
+
 ## Distributed AES-SEC-001 Controls
 
 Native-code repositories receive the centrally maintained AEMS governance
