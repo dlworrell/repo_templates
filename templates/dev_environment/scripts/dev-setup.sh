@@ -110,11 +110,19 @@ fi
 branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null || true)
 default=$(git symbolic-ref --quiet --short refs/remotes/origin/HEAD 2>/dev/null | sed 's#^origin/##')
 default=${default:-main}
-if [ -n "$branch" ] && [ "$branch" != "$default" ]; then
+# A working branch tracks its own remote branch, never a shared one: the
+# default branch or the Catylist ADR-0013 dev-daily and fitment branches.
+case " $default dev-daily fitment " in
+  *" $branch "*) shared_branch=1 ;;
+  *) shared_branch=0 ;;
+esac
+if [ -n "$branch" ] && [ "$shared_branch" = 0 ]; then
   upstream=$(git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' 2>/dev/null || true)
-  if [ "$upstream" = "origin/$default" ]; then
-    needs "$branch tracks origin/$default; push it with 'git push -u origin $branch' so it tracks its own branch"
-  fi
+  for shared in "$default" dev-daily fitment; do
+    if [ "$upstream" = "origin/$shared" ]; then
+      needs "$branch tracks origin/$shared; push it with 'git push -u origin $branch' so it tracks its own branch"
+    fi
+  done
 fi
 
 # 5. Merge-based workflow: never rebase pushed work.

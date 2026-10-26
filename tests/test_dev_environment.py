@@ -83,6 +83,18 @@ class DevSetupTests(unittest.TestCase):
         run = self.setup("--check")
         self.assertIn("feat/x tracks origin/main", run.stdout)
 
+    def test_branch_tracking_dev_daily_needs_attention(self):
+        # Catylist ADR-0013: work is cut from dev-daily but tracks its own branch.
+        self.git("config", "--global", "user.name", "T")
+        self.git("config", "--global", "user.email", "t@example.com")
+        self.git("commit", "-q", "--allow-empty", "-m", "init", "--no-gpg-sign")
+        self.git("config", "--local", "--add", "remote.origin.fetch", "+refs/heads/dev-daily:refs/remotes/origin/dev-daily")
+        self.git("update-ref", "refs/remotes/origin/dev-daily", "HEAD")
+        self.git("switch", "-q", "-c", "fix/42-x", "--track", "origin/dev-daily")
+        self.assertIn("fix/42-x tracks origin/dev-daily", self.setup("--check").stdout)
+        self.git("switch", "-q", "-c", "dev-daily", "--track", "origin/dev-daily")
+        self.assertNotIn("tracks origin/dev-daily", self.setup("--check").stdout)
+
     def test_misuse_exits_2(self):
         self.assertEqual(self.setup("--rebase").returncode, 2)
 
