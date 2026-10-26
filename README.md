@@ -99,6 +99,13 @@ release. They install:
   which tests `main` and parks at the `release` environment until the owner
   approves the tag.
 
+Project Zero verifies adoption with the
+`.aems/project-zero/profiles/adr-0013/profile.json` profile: it adds high
+findings for a missing `dev-daily` or `fitment` branch, CI that does not run on
+them, and a release workflow without the `release` approval gate. The default
+profile is unchanged, so repositories that have not adopted ADR-0013 still
+certify.
+
 ## Distributed AES-SEC-001 Controls
 
 Native-code repositories receive the centrally maintained AEMS governance
