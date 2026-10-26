@@ -14,6 +14,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 from typing import Any
@@ -119,6 +120,100 @@ def assess(root: Path, profile: dict[str, Any]) -> list[dict[str, Any]]:
                     "remediation": "Install or update a governed workflow containing the required capability.",
                 }
             )
+    model = profile.get("branch_model")
+    if model:
+        findings.extend(assess_branch_model(root, model, len(findings)))
+    return findings
+
+
+def _trigger_block(text: str) -> str:
+    """The workflow's top-level ``on:`` block (or inline value), as text."""
+    match = re.search(r"^(?:on|\"on\"|'on'):[ \t]*(.*)$", text, re.MULTILINE)
+    if not match:
+        return ""
+    if match.group(1).strip():
+        return match.group(1)
+    block = []
+    for line in text[match.end():].splitlines()[1:]:
+        if line.strip() and not line.startswith((" ", "\t")):
+            break
+        block.append(line)
+    return "\n".join(block)
+
+
+def runs_on_branches(text: str, branches: list[str]) -> bool:
+    """True if a workflow's push trigger covers every listed branch.
+
+    A push trigger with no branch filter covers all branches; otherwise each
+    branch must be named in the trigger block.
+    """
+    block = _trigger_block(text)
+    if not block:
+        return False
+    if not block.startswith(("\n", " ")) and "\n" not in block:  # inline: on: push / on: [push, ...]
+        return "push" in block
+    push = re.search(r"^([ \t]+)push:[ \t]*(.*)$", block, re.MULTILINE)
+    if not push:
+        return False
+    indent = len(push.group(1))
+    sub = []
+    for line in block[push.end():].splitlines()[1:]:
+        if line.strip() and len(line) - len(line.lstrip()) <= indent:
+            break
+        sub.append(line)
+    filters = "\n".join(sub)
+    if not re.search(r"^\s*branches(?:-ignore)?:", filters, re.MULTILINE):
+        return True
+    return all(re.search(rf"(?<![\w/-]){re.escape(b)}(?![\w/-])", filters) for b in branches)
+
+
+def branch_exists(root: Path, branch: str) -> bool | None:
+    """Whether ``branch`` exists on origin (or locally); None if unknowable."""
+    remote = git_value(root, "ls-remote", "--heads", "origin", branch)
+    if remote is not None:
+        return bool(remote)
+    for ref in (f"refs/remotes/origin/{branch}", f"refs/heads/{branch}"):
+        if git_value(root, "rev-parse", "--verify", "--quiet", ref):
+            return True
+    # Without an origin remote the local branches are the whole answer.
+    return False if git_value(root, "remote", "get-url", "origin") is None else None
+
+
+def assess_branch_model(root: Path, model: dict[str, Any], offset: int = 0) -> list[dict[str, Any]]:
+    """Catylist ADR-0013: daily, fitment and release branches.
+
+    Reports missing long-lived branches, CI that does not run on them, and a
+    release workflow without the owner's approval gate. Remediation is a
+    reviewed adoption pull request, so these findings are report-only.
+    """
+    severity = model.get("severity", "medium")
+    adr = model.get("adr", "Catylist ADR-0013")
+    branches = list(model.get("branches", ["dev-daily", "fitment"]))
+    findings: list[dict[str, Any]] = []
+
+    def add(title: str, path: str, remediation: str) -> None:
+        findings.append({"id": f"P0-BRANCH-{offset + len(findings) + 1:04d}", "severity": severity,
+                         "domain": "branch-model", "title": title, "path": path,
+                         "remediation": f"{remediation} ({adr})."})
+
+    for branch in branches:
+        exists = branch_exists(root, branch)
+        if exists is None:
+            add(f"Could not confirm that the {branch} branch exists", branch,
+                f"Run Project Zero where origin is reachable, or create {branch} from the default branch")
+        elif not exists:
+            add(f"Long-lived branch is missing: {branch}", branch,
+                f"Create {branch} from the default branch, then apply protect-integration-branches through AEMS")
+    workflows = sorted((root / ".github" / "workflows").glob("*.y*ml")) if (root / ".github" / "workflows").is_dir() else []
+    texts = {w: w.read_text(encoding="utf-8", errors="replace") for w in workflows}
+    if not any(runs_on_branches(t, branches) for t in texts.values()):
+        add(f"No workflow runs on pushes to {', '.join(branches)}", ".github/workflows",
+            "Add the branches to CI's push trigger, or install repo_templates shared/github/workflows/ci.yml")
+    gate = model.get("release_environment", "release")
+    if not any("workflow_dispatch" in t and re.search(rf"^\s*environment:\s*{re.escape(gate)}\s*$", t, re.MULTILINE)
+               for t in texts.values()):
+        add(f"No release workflow parks at the '{gate}' environment for owner approval", ".github/workflows",
+            "Install repo_templates shared/github/workflows/release.yml with the repository's own test command")
     return findings
 
 

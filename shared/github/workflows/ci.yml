@@ -1,0 +1,28 @@
+name: CI
+
+# Runs the repository's tests on every pull request into, and every push to,
+# the three Catylist ADR-0013 branches: dev-daily (daily merge scope),
+# fitment (agent documentation and test cycle) and main (released work).
+# The fitment cycle reads this workflow's result on the fitment head.
+# Replace the test command with the repository's own.
+
+on:
+  pull_request:
+    branches: [dev-daily, fitment, main]
+  push:
+    branches: [dev-daily, fitment, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Run tests
+        run: python3 -m unittest discover -s tests -v

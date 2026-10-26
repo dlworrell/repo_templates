@@ -23,6 +23,10 @@ EXPECTED = {
         "name": "protect-release-tags",
         "target": "tag",
     },
+    "rulesets/protect-integration-branches.json": {
+        "name": "protect-integration-branches",
+        "target": "branch",
+    },
 }
 
 FORBIDDEN_RULE_TYPES = frozenset(

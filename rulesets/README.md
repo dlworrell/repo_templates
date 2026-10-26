@@ -10,17 +10,20 @@ repositories created from `repo_templates` start from them.
 | --- | --- | --- |
 | `protect-default-branch.json` | branch (`~DEFAULT_BRANCH`) | Blocks deletion and force-push of the default branch, requires signed commits, and requires every change to land through a pull request merged with a merge commit. No approving review count is required, so a sole maintainer can merge their own pull request. |
 | `protect-release-tags.json` | tag (`refs/tags/v*`) | Blocks deletion, force-update, and any update of release tags once created. |
+| `protect-integration-branches.json` | branch (`dev-daily`, `fitment`) | The same rules as the default branch for the daily merge scope and the fitment branch (Catylist ADR-0013). Because the branches cannot be deleted, merging a promotion pull request never removes them. |
 
-Neither ruleset defines bypass actors. Repository administrators are subject
+No ruleset defines bypass actors. Repository administrators are subject
 to the same rules as every other contributor.
 
 The paths and file names are a consumed interface: AEMS fetches exactly
-`rulesets/protect-default-branch.json` and `rulesets/protect-release-tags.json`.
-Renaming or moving either file is a breaking change.
+`rulesets/protect-default-branch.json`, `rulesets/protect-release-tags.json`
+and `rulesets/protect-integration-branches.json`. Renaming or moving any of
+them is a breaking change.
 
 ## Authority
 
 - Catylist ADR-0006 (repository protection and merge policy).
+- Catylist ADR-0013 (daily, fitment and release branches).
 - AES-DEV-001 requirements R001 through R007.
 
 ## Matching Repository Merge Settings
