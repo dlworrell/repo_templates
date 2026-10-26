@@ -1,0 +1,9 @@
+# <type>(<scope>): <subject>   e.g. fix(parser): reject empty input
+#
+# What changed and why. One logical change per commit.
+#
+# The pull request (not each commit) carries the ADR line:
+#   ADR: ADR-00NN        or   ADR: n/a, <reason>
+# Agents add their trailer, e.g.:
+#   Co-Authored-By: Claude <noreply@anthropic.com>
+# Commits are signed (ADR-0006). Lines starting with # are ignored.

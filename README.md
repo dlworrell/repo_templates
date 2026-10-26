@@ -36,7 +36,13 @@ Available governance scaffolds:
 - [`project_scope`](templates/project_scope/README.md): a self-contained scope,
   evidence locations and a read-only root caller under Catylist ADR-0004.
 - [`agent_instructions`](templates/agent_instructions/README.md): root and scope
-  `CLAUDE.md` plus minimal `.claude/` routing under Catylist ADR-0005.
+  `CLAUDE.md`, root `AGENTS.md` and minimal `.claude/` routing under Catylist
+  ADR-0005, including the ring 0 and agent title-line rules (ADR-0000, ADR-0011).
+- [`adr`](templates/adr/README.md): the standard ADR-0000 that adopts the
+  Catylist Code of Conduct (ring 0) in each governed repository.
+- [`dev_environment`](templates/dev_environment/README.md): `scripts/dev-setup.sh`
+  and `.gitmessage`, which check and fix a clone's local Git setup (signing,
+  tracking, merge-based pulls) as the AEMS Git workflow prompt describes.
 
 These scaffolds require explicit parameter replacement and project evidence;
 their presence does not establish adoption, verification or production readiness.

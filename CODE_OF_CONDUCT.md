@@ -1,5 +1,11 @@
 # Code of Conduct
 
+> **Ring 0.** Every governed Catalyst repository is bound by the
+> [Catylist Code of Conduct](https://github.com/dlworrell/Catylist/blob/main/CODE_OF_CONDUCT.md),
+> adopted in each repository as its ADR-0000. It ranks above this document;
+> where they differ, the Catylist Code governs. The community principles below
+> are preserved unchanged, as this document requires.
+
 ## Guiding Principle
 
 **Love everyone as you love yourself.**

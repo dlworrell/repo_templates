@@ -1,5 +1,9 @@
 # Pull Request
 
+<!-- Agents: start this body with **<Agent> for @<prompting user>** (Catylist ADR-0011). -->
+
+ADR: <!-- the ADR this implements or changes, or "n/a, <reason>" (Catylist Code, Law 1) -->
+
 ## Summary
 Describe the change and why it is needed.
 
