@@ -19,7 +19,7 @@ on:
       - 'tools/project_zero_commit.py'
       - 'tests/**'
   push:
-    branches: [main]
+    branches: [main, dev-daily, fitment]
     paths:
       - '.github/workflows/p0.yml'
       - '.github/workflows/verify.yml'
