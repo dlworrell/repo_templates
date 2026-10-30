@@ -135,3 +135,7 @@ Templates are versioned like software. Projects created from a template should r
 ## License
 
 The templates are provided under the license selected for this repository. Individual generated projects may use a different license if specified during creation.
+
+## Releasing
+
+Changes move `dev-daily` → `fitment` → `main`, and a release is published only after the owner approves it. See [docs/RELEASING.md](docs/RELEASING.md).
