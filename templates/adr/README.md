@@ -1,3 +1,10 @@
+<!--
+SPDX-FileCopyrightText: 2026 Donovan Worrell and Just a Geek LLC
+
+SPDX-License-Identifier: Apache-2.0
+Catalyst-File-ID: urn:uuid:1970481a-c311-4207-9b37-18d0ef6a8b40
+-->
+
 # ADR templates
 
 `ADR-0000-catylist-code-of-conduct.md` is the standard ring 0 adoption record
