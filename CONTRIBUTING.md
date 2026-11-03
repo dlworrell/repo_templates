@@ -1,3 +1,10 @@
+<!--
+SPDX-FileCopyrightText: 2026 Donovan Worrell and Just a Geek LLC
+
+SPDX-License-Identifier: Apache-2.0
+Catalyst-File-ID: urn:uuid:82ac93e7-a0ea-4685-b2fb-e75384992ace
+-->
+
 # Contributing
 
 Thank you for contributing to `repo_templates`.
