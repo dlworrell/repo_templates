@@ -1,3 +1,10 @@
+<!--
+SPDX-FileCopyrightText: 2026 Donovan Worrell and Just a Geek LLC
+
+SPDX-License-Identifier: Apache-2.0
+Catalyst-File-ID: urn:uuid:1b144b1b-fb78-44b2-8f60-55739f0c1470
+-->
+
 # repo_templates
 
 Canonical repository templates for Just a Geek LLC and the broader Atarix engineering ecosystem.

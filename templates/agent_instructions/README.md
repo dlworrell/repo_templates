@@ -1,3 +1,10 @@
+<!--
+SPDX-FileCopyrightText: 2026 Donovan Worrell and Just a Geek LLC
+
+SPDX-License-Identifier: Apache-2.0
+Catalyst-File-ID: urn:uuid:80d773cf-5bcd-4a9e-aa00-ce2a822ff450
+-->
+
 # Agent instruction templates
 
 Authority: Catylist [ADR-0005](https://github.com/dlworrell/Catylist/blob/main/docs/adr/ADR-0005-agent-instruction-files.md).
