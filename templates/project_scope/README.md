@@ -1,3 +1,10 @@
+<!--
+SPDX-FileCopyrightText: 2026 Donovan Worrell and Just a Geek LLC
+
+SPDX-License-Identifier: Apache-2.0
+Catalyst-File-ID: urn:uuid:190072c9-8437-4115-9335-0498f352a0c2
+-->
+
 # Governed project-scope template
 
 Authority: Catylist [ADR-0004](https://github.com/dlworrell/Catylist/blob/main/docs/adr/ADR-0004-governed-project-scopes.md)

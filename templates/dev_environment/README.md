@@ -1,3 +1,10 @@
+<!--
+SPDX-FileCopyrightText: 2026 Donovan Worrell and Just a Geek LLC
+
+SPDX-License-Identifier: Apache-2.0
+Catalyst-File-ID: urn:uuid:0a84015e-ef0b-4a4c-9fff-558d4b2f7e12
+-->
+
 # Development environment template
 
 Authority: Catylist [ADR-0006](https://github.com/dlworrell/Catylist/blob/main/docs/adr/ADR-0006-default-branch-protection-and-signed-commits.md),
